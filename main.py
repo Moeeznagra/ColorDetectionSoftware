@@ -13,6 +13,69 @@ root.configure(bg="#e4e8eb")
 root.resizable(False, False)
 
 
+def showimage():
+    global filename
+    filename = filedialog.askopenfilename(initialdir=os.getcwd(), title="Select Image File",
+                                          filetype=(("PNG file", "*.png"),("JPG file", "*.jpg"),("ALL file", "*.txt")))
+    img = Image.open(filename)
+    img = ImageTk.PhotoImage(img)
+    lbl.configure(image=img,width=310,height=270)
+    lbl.image=img
+
+
+
+def Findcolor():
+    ct=ColorThief(filename)
+    palette = ct.get_palette(color_count=11)
+
+    rgb1=palette[0]
+    rgb2 = palette[1]
+    rgb3 = palette[2]
+    rgb4 = palette[3]
+    rgb5 = palette[4]
+    rgb6 = palette[5]
+    rgb7 = palette[6]
+    rgb8 = palette[7]
+    rgb9 = palette[8]
+    rgb10 = palette[9]
+
+    color1 = f"#{rgb1[0]:02x}{rgb1[1]:02x}{rgb1[2]:02x}"
+    color2 = f"#{rgb2[0]:02x}{rgb2[1]:02x}{rgb2[2]:02x}"
+    color3 = f"#{rgb3[0]:02x}{rgb3[1]:02x}{rgb3[2]:02x}"
+    color4 = f"#{rgb4[0]:02x}{rgb4[1]:02x}{rgb4[2]:02x}"
+    color5 = f"#{rgb5[0]:02x}{rgb5[1]:02x}{rgb5[2]:02x}"
+    color6 = f"#{rgb6[0]:02x}{rgb6[1]:02x}{rgb6[2]:02x}"
+    color7 = f"#{rgb7[0]:02x}{rgb7[1]:02x}{rgb7[2]:02x}"
+    color8 = f"#{rgb8[0]:02x}{rgb8[1]:02x}{rgb8[2]:02x}"
+    color9 = f"#{rgb9[0]:02x}{rgb9[1]:02x}{rgb9[2]:02x}"
+    color10 = f"#{rgb10[0]:02x}{rgb10[1]:02x}{rgb10[2]:02x}"
+
+    colors.itemconfig(id1, fill=color1)
+    colors.itemconfig(id2, fill=color2)
+    colors.itemconfig(id3, fill=color3)
+    colors.itemconfig(id4, fill=color4)
+    colors.itemconfig(id5, fill=color5)
+
+    colors2.itemconfig(id6, fill=color6)
+    colors2.itemconfig(id7, fill=color7)
+    colors2.itemconfig(id8, fill=color8)
+    colors2.itemconfig(id9, fill=color9)
+    colors2.itemconfig(id10, fill=color10)
+
+    hex1.config(text=color1)
+    hex2.config(text=color2)
+    hex3.config(text=color3)
+    hex4.config(text=color4)
+    hex5.config(text=color5)
+    hex6.config(text=color6)
+    hex7.config(text=color7)
+    hex8.config(text=color8)
+    hex9.config(text=color9)
+    hex10.config(text=color10)
+
+
+
+
 #icon
 image_icon = PhotoImage(file="icon.png")
 root.iconphoto(False, image_icon)
@@ -95,13 +158,7 @@ f.place(x=10,y=10)
 lbl = Label(f,bg="black")
 lbl.place(x=0, y=0)
 
-Button(selectimage, text="Select Image", width=12, height=1, font="arial 14 bold").place(x=10,y=300)
-Button(selectimage, text="Find Colours", width=12, height=1, font="arial 14 bold").place(x=176,y=300)
-
-
-
-
-
-
+Button(selectimage, text="Select Image", width=12, height=1, font="arial 14 bold",command=showimage).place(x=10,y=300)
+Button(selectimage, text="Find Colours", width=12, height=1, font="arial 14 bold",command=Findcolor).place(x=176,y=300)
 
 root.mainloop()
